@@ -1,0 +1,138 @@
+'use client';
+
+import { useState, useEffect, useCallback } from 'react';
+import Header from '@/components/Header';
+import CategoryFilter from '@/components/CategoryFilter';
+import LeaderboardEntry from '@/components/LeaderboardEntry';
+import BidModal from '@/components/BidModal';
+import StickyBidBar from '@/components/StickyBidBar';
+import Footer from '@/components/Footer';
+import BigPlinkoWinners from '@/components/BigPlinkoWinners';
+import type { Ad, Category } from '@/lib/types';
+
+const now = Date.now();
+const DEMO_ADS: Ad[] = [
+  {
+    id: '1', title: 'iPhone 15 Pro Max', description: 'Apple iPhone 15 Pro Max 256GB', url: 'https://apple.com',
+    category: 'AI', baseBid: 500000, multiplier: 3.4, finalBid: 1700000, clicks: 43586,
+    status: 'active', stripePaymentId: 'pi_demo1', createdAt: new Date(now - 18 * 60 * 1000), updatedAt: new Date(),
+    endsAt: new Date(now + 2 * 60 * 60 * 1000), bidderCount: 38, productImage: '📱',
+  },
+  {
+    id: '2', title: 'MacBook Air M3', description: 'Apple MacBook Air M3 15" 16GB RAM', url: 'https://apple.com',
+    category: 'Dev Tools', baseBid: 250000, multiplier: 5, finalBid: 1250000, clicks: 28441,
+    status: 'active', stripePaymentId: 'pi_demo2', createdAt: new Date(now - 2 * 60 * 60 * 1000), updatedAt: new Date(),
+    endsAt: new Date(now + 5 * 60 * 1000), bidderCount: 67, productImage: '💻', auctionStatus: 'ending-soon',
+  },
+  {
+    id: '3', title: 'Sony WH-1000XM5', description: 'Industry-leading noise cancellation', url: 'https://sony.com',
+    category: 'Other', baseBid: 410000, multiplier: 2, finalBid: 820000, clicks: 15220,
+    status: 'active', stripePaymentId: 'pi_demo3', createdAt: new Date(now - 5 * 60 * 60 * 1000), updatedAt: new Date(),
+    endsAt: new Date(now + 8 * 60 * 60 * 1000), bidderCount: 21, productImage: '🎧',
+  },
+  {
+    id: '4', title: 'PlayStation 5', description: 'Sony PS5 Disc Edition + DualSense', url: 'https://playstation.com',
+    category: 'Other', baseBid: 150000, multiplier: 5, finalBid: 750000, clicks: 12800,
+    status: 'active', stripePaymentId: 'pi_demo4', createdAt: new Date(now - 8 * 60 * 60 * 1000), updatedAt: new Date(),
+    endsAt: new Date(now + 12 * 60 * 60 * 1000), bidderCount: 44, productImage: '🎮',
+  },
+  {
+    id: '5', title: 'Samsung Galaxy S24 Ultra', description: '512GB Titanium Black', url: 'https://samsung.com',
+    category: 'AI', baseBid: 300000, multiplier: 2, finalBid: 600000, clicks: 9820,
+    status: 'active', stripePaymentId: 'pi_demo5', createdAt: new Date(now - 12 * 60 * 60 * 1000), updatedAt: new Date(),
+    endsAt: new Date(now + 3 * 24 * 60 * 60 * 1000), bidderCount: 15, productImage: '📲',
+  },
+];
+
+export default function LiveAuctionsClient() {
+  const [ads, setAds] = useState<Ad[]>(DEMO_ADS);
+  const [category, setCategory] = useState<Category>('All');
+  const [bidModalOpen, setBidModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState(new Date());
+
+  const fetchAds = useCallback(async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+      if (category !== 'All') params.set('category', category);
+      const res = await fetch(`/api/ads?${params.toString()}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.ads?.length > 0) {
+          const apiAds = data.ads as Ad[];
+          setAds([...apiAds, ...DEMO_ADS.filter(d => !apiAds.some((a: Ad) => a.title === d.title))]);
+        }
+      }
+    } catch { /* Keep defaults */ }
+    finally {
+      setLoading(false);
+      setLastUpdated(new Date());
+    }
+  }, [category]);
+
+  useEffect(() => {
+    fetchAds();
+    // TODO: BACKEND — replace with WebSocket / SSE for real-time updates
+    const interval = setInterval(fetchAds, 30000);
+    return () => clearInterval(interval);
+  }, [fetchAds]);
+
+  const filtered = category === 'All' ? ads : ads.filter(a => a.category === category);
+  const topBid = filtered[0]?.finalBid;
+
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header onPlaceBid={() => setBidModalOpen(true)} />
+      <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%', padding: '0 24px' }}>
+        <BigPlinkoWinners />
+      </div>
+
+      <main style={{ flex: 1, maxWidth: 1200, margin: '0 auto', width: '100%', padding: '40px 24px' }}>
+        {/* Page Hero */}
+        <div className="page-hero" style={{ padding: '40px 0 32px', textAlign: 'left', maxWidth: '100%', margin: 0 }}>
+          <div className="section-label">🔴 Live Now</div>
+          <h1 className="section-title" style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)' }}>
+            Live Auctions
+          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', margin: 0 }}>
+              {filtered.length} active auctions · Real-time updates
+            </p>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+              <span
+                className="live-pulse-dot"
+                style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: 'var(--accent-green)', boxShadow: '0 0 6px var(--accent-green)' }}
+              />
+              Updated {lastUpdated.toLocaleTimeString()}
+            </span>
+          </div>
+        </div>
+
+        <CategoryFilter selected={category} onSelect={setCategory} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingBottom: 80 }}>
+          {loading && filtered.length === 0 ? (
+            Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} style={{ height: 82, borderRadius: 'var(--radius-lg)', background: 'var(--bg-card)', border: '1px solid var(--border)', animation: 'pulse 2s ease-in-out infinite' }} />
+            ))
+          ) : filtered.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '80px 20px', color: 'var(--text-muted)' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: 12 }}>🏜️</div>
+              <div style={{ fontWeight: 600 }}>No auctions in this category yet</div>
+              <div style={{ fontSize: '0.85rem', marginTop: 6 }}>Be the first to start one!</div>
+            </div>
+          ) : (
+            filtered.map((ad, i) => (
+              <LeaderboardEntry key={ad.id} ad={ad} rank={i + 1} onBid={() => setBidModalOpen(true)} />
+            ))
+          )}
+        </div>
+      </main>
+
+      <StickyBidBar onBid={() => setBidModalOpen(true)} currentHighBid={topBid} />
+      <Footer />
+      <BidModal isOpen={bidModalOpen} onClose={() => setBidModalOpen(false)} onBidPlaced={fetchAds} />
+    </div>
+  );
+}

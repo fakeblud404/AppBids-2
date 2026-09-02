@@ -1,40 +1,37 @@
-﻿'use client';
+'use client';
+
+import Link from 'next/link';
 
 interface LeaderboardHeroProps {
   activeAdsCount: number;
+  onStartBidding?: () => void;
 }
 
-export default function LeaderboardHero({ activeAdsCount }: LeaderboardHeroProps) {
+export default function LeaderboardHero({ activeAdsCount, onStartBidding }: LeaderboardHeroProps) {
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: '56rem',
-        margin: '0 auto',
-        borderRadius: '1rem',
-        background: 'rgba(255, 255, 255, 0.03)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        boxShadow: '0 10px 30px -10px rgba(245, 158, 11, 0.15)',
-        padding: '24px 32px',
-      }}
-    >
-      {/* Top-right Live badge */}
+    <div className="hero-section" style={{ padding: '72px 0 56px', textAlign: 'center', position: 'relative' }}>
+      {/* Background orbs */}
+      <div
+        className="hero-gradient-orb"
+        style={{ width: 600, height: 400, background: 'rgba(59,130,246,0.25)', top: -100, left: '50%', transform: 'translateX(-50%)' }}
+      />
+      <div
+        className="hero-gradient-orb"
+        style={{ width: 300, height: 300, background: 'rgba(168,85,247,0.2)', top: 0, right: '10%' }}
+      />
+
+      {/* Live badge */}
       <div
         style={{
-          position: 'absolute',
-          top: 16,
-          right: 16,
-          display: 'flex',
+          display: 'inline-flex',
           alignItems: 'center',
           gap: 6,
-          padding: '4px 10px',
+          padding: '5px 14px',
           borderRadius: 9999,
-          background: 'rgba(6, 78, 59, 0.55)',
-          border: '1px solid rgba(16, 185, 129, 0.2)',
-          backdropFilter: 'blur(8px)',
+          background: 'rgba(6, 78, 59, 0.5)',
+          border: '1px solid rgba(16, 185, 129, 0.25)',
+          marginBottom: 24,
+          position: 'relative',
         }}
       >
         <span
@@ -48,75 +45,115 @@ export default function LeaderboardHero({ activeAdsCount }: LeaderboardHeroProps
             boxShadow: '0 0 6px 2px rgba(16, 185, 129, 0.6)',
           }}
         />
-        <span
-          style={{
-            fontSize: '0.7rem',
-            fontWeight: 500,
-            color: '#34d399',
-            letterSpacing: '0.04em',
-          }}
-        >
-          Live
+        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#34d399', letterSpacing: '0.04em' }}>
+          {activeAdsCount} Live Auctions Right Now
         </span>
       </div>
 
-      {/* Main content row */}
+      {/* Headline */}
+      <h1
+        style={{
+          fontSize: 'clamp(2rem, 5.5vw, 3.4rem)',
+          fontWeight: 900,
+          letterSpacing: '-0.04em',
+          lineHeight: 1.1,
+          margin: '0 auto 20px',
+          maxWidth: 820,
+          background: 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 40%, #93c5fd 70%, #a5f3fc 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          position: 'relative',
+        }}
+      >
+        Bid on real products in live auctions — fast, fair, and mobile-first
+      </h1>
+
+      {/* Subtext */}
+      <p
+        style={{
+          fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
+          color: 'var(--text-secondary)',
+          maxWidth: 580,
+          margin: '0 auto 36px',
+          lineHeight: 1.65,
+          position: 'relative',
+        }}
+      >
+        Place a bid, spin the provably fair Plinko multiplier, and land the highest final bid to win.
+        Winners get real products shipped to their door — no tricks, no hidden fees.
+      </p>
+
+      {/* CTAs */}
       <div
         style={{
           display: 'flex',
-          alignItems: 'center',
-          gap: 20,
+          gap: 14,
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          position: 'relative',
+          marginBottom: 48,
         }}
       >
-        {/* Trophy icon badge */}
-        <div
-          style={{
-            flexShrink: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 56,
-            height: 56,
-            borderRadius: 14,
-            background: 'rgba(245, 158, 11, 0.10)',
-            border: '1px solid rgba(245, 158, 11, 0.20)',
-            fontSize: '1.75rem',
-            filter: 'drop-shadow(0 0 10px rgba(245, 158, 11, 0.45))',
-          }}
-        >
-          <span className="trophy-glimmer">🏆</span>
-        </div>
+        {onStartBidding ? (
+          <button
+            className="btn-bid"
+            onClick={onStartBidding}
+            id="hero-start-bidding-btn"
+            style={{ fontSize: '1.05rem', padding: '14px 36px' }}
+          >
+            🚀 Start Bidding
+          </button>
+        ) : (
+          <Link href="/live-auctions">
+            <button className="btn-bid" style={{ fontSize: '1.05rem', padding: '14px 36px' }}>
+              🚀 Start Bidding
+            </button>
+          </Link>
+        )}
+        <Link href="/how-it-works">
+          <button
+            style={{
+              fontSize: '1.05rem',
+              padding: '14px 36px',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid rgba(255,255,255,0.15)',
+              background: 'rgba(255,255,255,0.04)',
+              color: 'var(--text-secondary)',
+              cursor: 'pointer',
+              fontWeight: 600,
+              transition: 'all 0.2s',
+              minHeight: 44,
+            }}
+          >
+            📖 How It Works
+          </button>
+        </Link>
+      </div>
 
-        {/* Text stack */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: '1.65rem',
-              fontWeight: 800,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              lineHeight: 1.1,
-              background: 'linear-gradient(180deg, #ffffff 30%, #fde68a 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            App Leaderboards
-          </h1>
-          <p
-            style={{
-              margin: 0,
-              fontSize: '0.85rem',
-              fontWeight: 400,
-              color: '#94a3b8',
-              letterSpacing: '0.01em',
-            }}
-          >
-            {activeAdsCount} active ads&nbsp;&bull;&nbsp;Highest bids rank first
-          </p>
-        </div>
+      {/* Social proof stats */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          gap: 32,
+          position: 'relative',
+        }}
+      >
+        {[
+          { value: '12,400+', label: 'Auctions Won' },
+          { value: '$5M+', label: 'In Prizes Given Away' },
+          { value: '97%', label: 'Avg Plinko RTP' },
+          { value: '4.8★', label: 'User Rating' },
+        ].map(stat => (
+          <div key={stat.label} style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
+              {stat.value}
+            </div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: 3 }}>{stat.label}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
