@@ -8,18 +8,18 @@ export const metadata: Metadata = {
 };
 
 const DEMO_WINNERS = [
-  { name: 'Jessica M.', avatar: '👩‍💻', location: 'New York', item: 'iPhone 15 Pro Max', amount: '$1,249', date: '2 hours ago', category: 'Electronics', bigWin: '5×' },
-  { name: 'Michael S.', avatar: '👨‍🎨', location: 'Austin', item: 'MacBook Air M3', amount: '$1,499', date: '6 hours ago', category: 'Computers', bigWin: '3.4×' },
-  { name: 'Sarah K.', avatar: '👩‍🔧', location: 'Chicago', item: 'Sony WH-1000XM5', amount: '$399', date: '1 day ago', category: 'Audio', bigWin: '2×' },
-  { name: 'David R.', avatar: '👨‍💼', location: 'Los Angeles', item: 'iPad Pro M4', amount: '$1,099', date: '2 days ago', category: 'Tablets', bigWin: '10×' },
-  { name: 'Emily T.', avatar: '👩‍🚀', location: 'Seattle', item: 'Samsung Galaxy S24', amount: '$899', date: '3 days ago', category: 'Phones', bigWin: '5×' },
-  { name: 'James D.', avatar: '👨‍🔬', location: 'Miami', item: 'PlayStation 5', amount: '$499', date: '4 days ago', category: 'Gaming', bigWin: '2×' },
-  { name: 'Ashley B.', avatar: '👩‍💻', location: 'Denver', item: 'AirPods Pro 2', amount: '$249', date: '5 days ago', category: 'Audio', bigWin: '1.5×' },
-  { name: 'Christopher P.', avatar: '👨‍🎤', location: 'Phoenix', item: 'DJI Mini 4 Pro', amount: '$759', date: '6 days ago', category: 'Drones', bigWin: '5×' },
-  { name: 'Amanda M.', avatar: '👩‍🎨', location: 'Dallas', item: 'Dell XPS 15', amount: '$1,899', date: '7 days ago', category: 'Computers', bigWin: '2×' },
-  { name: 'Matthew L.', avatar: '👩‍🏫', location: 'Boston', item: 'Dyson V15 Detect', amount: '$749', date: '8 days ago', category: 'Appliances', bigWin: '3×' },
-  { name: 'Joshua S.', avatar: '👨‍🏭', location: 'Atlanta', item: 'Google Pixel 8', amount: '$699', date: '9 days ago', category: 'Phones', bigWin: '5×' },
-  { name: 'Taylor K.', avatar: '👩‍🚀', location: 'San Francisco', item: 'GoPro Hero 12', amount: '$399', date: '10 days ago', category: 'Cameras', bigWin: '2×' },
+  { name: 'Jessica M.', avatar: '👩‍💻', location: 'New York', item: 'Acme AI Tools', amount: '$1,700', date: '2 hours ago', category: 'AI', bigWin: '3.4×' },
+  { name: 'Michael S.', avatar: '👨‍🎨', location: 'Austin', item: 'SEO Wizard Pro', amount: '$1,250', date: '6 hours ago', category: 'SEO', bigWin: '5×' },
+  { name: 'Sarah K.', avatar: '👩‍🔧', location: 'Chicago', item: 'CryptoTrack Pro', amount: '$820', date: '1 day ago', category: 'Crypto', bigWin: '2×' },
+  { name: 'David R.', avatar: '👨‍💼', location: 'Los Angeles', item: 'LaunchPad SaaS', amount: '$750', date: '2 days ago', category: 'SaaS', bigWin: '5×' },
+  { name: 'Emily T.', avatar: '👩‍🚀', location: 'Seattle', item: 'MarketBot AI', amount: '$600', date: '3 days ago', category: 'Marketing', bigWin: '2×' },
+  { name: 'James D.', avatar: '👨‍🔬', location: 'Miami', item: 'DevStack Cloud', amount: '$400', date: '4 days ago', category: 'Dev Tools', bigWin: '2×' },
+  { name: 'Ashley B.', avatar: '👩‍💻', location: 'Denver', item: 'FinVault Enterprise', amount: '$340', date: '5 days ago', category: 'Finance', bigWin: '3.4×' },
+  { name: 'Christopher P.', avatar: '👨‍🎤', location: 'Phoenix', item: 'ShopEngine Headless', amount: '$250', date: '6 days ago', category: 'E-Commerce', bigWin: '5×' },
+  { name: 'Amanda M.', avatar: '👩‍🎨', location: 'Dallas', item: 'NeuralWrite AI', amount: '$240', date: '7 days ago', category: 'AI', bigWin: '2×' },
+  { name: 'Matthew L.', avatar: '👨‍🏫', location: 'Boston', item: 'FitTrack Pro', amount: '$323', date: '8 days ago', category: 'Other', bigWin: '3.4×' },
+  { name: 'Joshua S.', avatar: '👨‍🏭', location: 'Atlanta', item: 'BudgetBuddy Expense', amount: '$220', date: '9 days ago', category: 'Finance', bigWin: '2×' },
+  { name: 'Taylor K.', avatar: '👩‍🚀', location: 'San Francisco', item: 'NoteMaster AI', amount: '$212', date: '10 days ago', category: 'SaaS', bigWin: '2.5×' },
 ];
 
 const PLINKO_LEADERBOARD = [

@@ -23,7 +23,7 @@ export default function Footer() {
               <img src="/logo-transparent.png" alt="AppBids" style={{ height: 28, objectFit: 'contain' }} />
             </div>
             <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.65, margin: '0 0 16px' }}>
-              India&apos;s most transparent live auction platform. Bid fair, win big.
+              World&apos;s most transparent live auction platform. Bid fair, win big.
               Provably fair Plinko multipliers.
             </p>
             {/* Trust badges */}
