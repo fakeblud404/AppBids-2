@@ -374,6 +374,15 @@ body::before {
   animation: pulse 2s ease-in-out infinite;
 }
 
+/* ─── Live Pulse Dot ───────────────────────────────────────────── */
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px 2px rgba(16, 185, 129, 0.6); }
+  50%       { opacity: 0.55; box-shadow: 0 0 12px 4px rgba(16, 185, 129, 0.9); }
+}
+.live-pulse-dot {
+  animation: live-pulse 2s ease-in-out infinite;
+}
+
 /* ─── Plinko Board ─────────────────────────────────────────────── */
 .plinko-canvas {
   border-radius: var(--radius-lg);

@@ -6,6 +6,7 @@ import CategoryFilter from '@/components/CategoryFilter';
 import LeaderboardEntry from '@/components/LeaderboardEntry';
 import RecentMultipliersTicker from '@/components/RecentMultipliersTicker';
 import BidModal from '@/components/BidModal';
+import LeaderboardHero from '@/components/LeaderboardHero';
 import type { Ad, Category } from '@/lib/types';
 
 // Demo seed data for when Firebase isn't configured
@@ -174,76 +175,9 @@ export default function HomePage() {
           padding: '0 24px',
         }}
       >
-        {/* Stats Bar */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
-            padding: '24px 0 12px 0',
-            position: 'relative',
-          }}
-        >
-          <div style={{ textAlign: 'center' }}>
-            <h1
-              className="rainbow-rgb-text"
-              style={{
-                fontSize: '1.8rem',
-                fontWeight: 900,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                margin: 0,
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 12,
-              }}
-            >
-              <span className="trophy-glimmer">🏆</span> APP LEADERBOARDS
-            </h1>
-            <p
-              style={{
-                color: 'var(--text-muted)',
-                fontSize: '0.9rem',
-                margin: '8px 0 0 0',
-                textAlign: 'center',
-                fontWeight: 500,
-              }}
-            >
-              {filteredAds.length} active ads • Highest bids rank first
-            </p>
-          </div>
-
-          <div
-            style={{
-              position: 'absolute',
-              right: 0,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              padding: '6px 12px',
-              borderRadius: 100,
-              background: 'var(--accent-green-dim)',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              color: 'var(--accent-green)',
-            }}
-          >
-            <span
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: '50%',
-                background: 'var(--accent-green)',
-                animation: 'pulse 2s ease-in-out infinite',
-              }}
-            />
-            Live
-          </div>
+        {/* Leaderboard Hero Banner */}
+        <div style={{ padding: '72px 0 16px 0' }}>
+          <LeaderboardHero activeAdsCount={filteredAds.length} />
         </div>
 
         {/* Category Filter */}
